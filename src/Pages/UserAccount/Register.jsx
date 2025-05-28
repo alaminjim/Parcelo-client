@@ -1,8 +1,14 @@
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import register from "../../assets/Social/Animation - 1748426209978.json";
+import { useContext } from "react";
+import AuthContext from "../../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const { createRegister, setUser, updateUserProfile } =
+    useContext(AuthContext);
+
   const handelRegister = (e) => {
     e.preventDefault();
 
@@ -11,6 +17,26 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
+
+    createRegister(email, password)
+      .then((result) => {
+        const user = result.user;
+
+        updateUserProfile({ displayName: name, photoURL: photo }).then();
+
+        setUser(user);
+        toast.success("Register Successful");
+        form.reset();
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+
+    const passValid = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+    if (!passValid.test(password)) {
+      toast.error("Valid Password 6 characters one upper and lower case");
+    }
   };
   return (
     <div>

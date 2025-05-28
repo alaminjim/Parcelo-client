@@ -1,14 +1,30 @@
 import Lottie from "lottie-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../../assets/Social/Animation - 1748425698021.json";
+import AuthContext from "../../Context/AuthContext";
+import { useContext } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const { createSignIn, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handelSignIn = (e) => {
     e.preventDefault();
 
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
+    createSignIn(email, password)
+      .then((result) => {
+        const user = result.user;
+
+        setUser(user);
+        toast.success("sign in successful..!");
+        form.reset();
+        navigate("/");
+      })
+      .catch(() => {});
   };
   return (
     <div>
