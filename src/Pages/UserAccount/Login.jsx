@@ -4,6 +4,7 @@ import login from "../../assets/Social/Animation - 1748425698021.json";
 import AuthContext from "../../Context/AuthContext";
 import { useContext } from "react";
 import toast from "react-hot-toast";
+import SocialLogin from "../Social/SocialLogin";
 
 const Login = () => {
   const { createSignIn, setUser } = useContext(AuthContext);
@@ -62,6 +63,7 @@ const Login = () => {
                     Log in
                   </button>
                   <div className="divider">OR</div>
+                  <SocialLogin></SocialLogin>
                   <span className="text-center">
                     Dont't Have An Account{" "}
                     <Link to="/register">

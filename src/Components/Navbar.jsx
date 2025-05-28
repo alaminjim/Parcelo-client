@@ -1,7 +1,20 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo/parcelo-logo.png";
+import { useContext } from "react";
+import AuthContext from "../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, userSignOut } = useContext(AuthContext);
+  const handelSignOut = () => {
+    userSignOut()
+      .then(() => {
+        toast.success("sign out successful");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   const links = (
     <>
       <li>
@@ -78,11 +91,45 @@ const Navbar = () => {
               <span className="badge badge-xs badge-primary indicator-item"></span>
             </div>
           </button>
-          <Link to="/login">
-            <button className="btn text-amber-50 text-lg shadow-none border-[#714b67]  bg-[#714b67]">
-              Log in
-            </button>
-          </Link>
+          {user ? (
+            <>
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-20 rounded-full">
+                    <img
+                      title={user.displayName}
+                      alt="al amin"
+                      src={user.photoURL}
+                    />
+                  </div>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                >
+                  <li>
+                    <a>UserName: {user.displayName}</a>
+                  </li>
+                  <li>
+                    <a>Dashboard</a>
+                  </li>
+                  <li>
+                    <a onClick={handelSignOut}>Logout</a>
+                  </li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <Link to="/login">
+              <button className="btn text-amber-50 text-lg shadow-none border-[#714b67]  bg-[#714b67]">
+                Log in
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

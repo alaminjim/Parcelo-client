@@ -4,6 +4,7 @@ import register from "../../assets/Social/Animation - 1748426209978.json";
 import { useContext } from "react";
 import AuthContext from "../../Context/AuthContext";
 import toast from "react-hot-toast";
+import SocialLogin from "../Social/SocialLogin";
 
 const Register = () => {
   const { createRegister, setUser, updateUserProfile } =
@@ -23,7 +24,7 @@ const Register = () => {
         const user = result.user;
 
         updateUserProfile({ displayName: name, photoURL: photo }).then();
-
+        console.log(user);
         setUser(user);
         toast.success("Register Successful");
         form.reset();
@@ -85,6 +86,7 @@ const Register = () => {
                     Register
                   </button>
                   <div className="divider">OR</div>
+                  <SocialLogin></SocialLogin>
                   <span className="text-center">
                     Al Ready Have An Account{" "}
                     <Link to="/login">
