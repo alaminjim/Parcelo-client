@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo/parcelo-logo.png";
 
 const Navbar = () => {
@@ -78,9 +78,11 @@ const Navbar = () => {
               <span className="badge badge-xs badge-primary indicator-item"></span>
             </div>
           </button>
-          <button className="btn text-white text-lg border-[#714b67]  bg-[#714b67]">
-            Log in
-          </button>
+          <Link to="/login">
+            <button className="btn text-amber-50 text-lg shadow-none border-[#714b67]  bg-[#714b67]">
+              Log in
+            </button>
+          </Link>
         </div>
       </div>
     </div>
